@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>clinkd</title>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body data-theme="dark">
+
+        <div id="loader">
+            <div id="loader-inner">
+                <div id="loader-logo">clinkd</div>
+                <div id="loader-can">
+                    <canvas id="ldr-cv" width="54" height="90"></canvas>
+                </div>
+                <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
+                <div id="loader-tip">loading the good stuff in..</div>
+            </div>
+        </div>
+
+        <div id="bg-bubbles">
+            <div class="bubble" style="width:300px;height:300px;left:8%;top:15%;animation-delay:0s;animation-duration:9s"></div>
+            <div class="bubble" style="width:160px;height:160px;left:62%;top:4%;animation-delay:2.5s;animation-duration:7s"></div>
+            <div class="bubble" style="width:110px;height:110px;left:82%;top:55%;animation-delay:4s;animation-duration:11s"></div>
+            <div class="bubble" style="width:240px;height:240px;left:28%;top:62%;animation-delay:1s;animation-duration:8s"></div>
+            <div class="bubble" style="width:80px;height:80px;left:4%;top:78%;animation-delay:3s;animation-duration:6s"></div>
+            <div class="bubble" style="width:140px;height:140px;left:48%;top:40%;animation-delay:5s;animation-duration:10s"></div>
+        </div>
+
+        <div id="top">
+            <div id="logo">🥤 <span>clinkd</span></div>
+            <div id="hstats">
+                <div class="hstat"><div class="hval" id="s">0</div><div class="hlbl">points</div></div>
+                <div class="hstat"><div class="hval teal" id="mult">x1</div><div class="hlbl">multiplier</div></div>
+                <div class="hstat"><div class="hval green" id="caught">0</div><div class="hlbl">caught</div></div>
+                <div class="hstat"><div class="hval pink" id="missed">0</div><div class="hlbl">missed</div></div>
+                <div class="hstat"><div class="hval orange" id="rb">0</div><div class="hlbl">rebirths</div></div>
+                <div class="hstat"><div class="hval" id="acc">--%</div><div class="hlbl">accuracy</div></div>
+                <div class="hstat"><div class="hval purple" id="cps">0</div><div class="hlbl">clicks/s</div></div>
+            </div>
+  <button class="glassy-btn" onclick="openSettings()">⚙</button>
+        </div>
+
+        <div id="game">
+            <canvas id="fx"></canvas>
+            <div id="boosts"></div>
+            <div id="combo"></div>
+        </div>
+
+        <div id="panel">
+            <div id="ptabs">
+                <button class="ptab active" data-tab="shop-tab" onclick="swTab(this)">shop</button>
+                <button class="ptab" data-tab="upg-tab" onclick="swTab(this)">upgrades</button>
+                <button class="ptab" data-tab="rb-tab" onclick="swTab(this)">rebirth</button>
+                <button class="ptab" data-tab="stats-tab" onclick="swTab(this)">stats</button>
+            </div>
+
+        <div id="shop-tab" class="tab">
+            <div class="pbal">💰 <span id="bal">0</span> pts &nbsp;·&nbsp; lifetime: <span id="ate">0</span>
+        </div>
+
+    <div class="psec">⚡ energy drinks</div>
+    <div class="pitem" id="pi-rb"><div class="pico">🥤</div><div class="pinfo"><b>red bull</b><br>x2 mult for 20s</div><button onclick="buy('rb')">80</button></div>
+    <div class="pitem" id="pi-cf"><div class="pico">☕</div><div class="pinfo"><b>cold brew</b><br>x5 mult for 30s</div><button onclick="buy('cf')">200</button></div>
+    <div class="pitem" id="pi-mn"><div class="pico">⚡</div><div class="pinfo"><b>monster</b><br>x10 mult for 15s</div><button onclick="buy('mn')">500</button></div>
+    <div class="pitem" id="pi-ov"><div class="pico">🔋</div><div class="pinfo"><b>overcharge</b><br>x3 mult for 60s</div><button onclick="buy('ov')">350</button></div>
+    <div class="pitem" id="pi-pl"><div class="pico">🟢</div><div class="pinfo"><b>plasma fuel</b><br>x25 for 10s · needs 1 rebirth</div><button onclick="buy('pl')">2000</button></div>
+    <div class="pitem" id="pi-gd"><div class="pico">☀️</div><div class="pinfo"><b>god mode</b><br>x100 for 8s · needs 5 rebirths</div><button onclick="buy('gd')">25000</button></div>
+
+    <div class="psec">🧊 control</div>
+    <div class="pitem" id="pi-fr"><div class="pico">❄️</div><div class="pinfo"><b>freeze</b><br>stops all cans for 8s</div><button onclick="buy('fr')">300</button></div>
+    <div class="pitem" id="pi-mfr"><div class="pico">🌨️</div><div class="pinfo"><b>mega freeze</b><br>stops all cans 25s · needs 2 rebirths</div><button onclick="buy('mfr')">2500</button></div>
+    <div class="pitem" id="pi-mg"><div class="pico">🧲</div><div class="pinfo"><b>magnet</b><br>2x spawn rate for 20s</div><button onclick="buy('mg')">150</button></div>
+    <div class="pitem" id="pi-sh"><div class="pico">🛡️</div><div class="pinfo"><b>miss shield</b><br>next 15 misses blocked</div><button onclick="buy('sh')">600</button></div>
+    <div class="pitem" id="pi-boom"><div class="pico">💣</div><div class="pinfo"><b>can bomb</b><br>auto-clicks ALL cans on screen once</div><button onclick="buy('boom')">800</button></div>
+
+    <div class="psec">✨ specials</div>
+    <div class="pitem" id="pi-gh"><div class="pico">⭐</div><div class="pinfo"><b>golden hour</b><br>golden cans spawn for 20s (50x each)</div><button onclick="buy('gh')">1500</button></div>
+    <div class="pitem" id="pi-fz"><div class="pico">🌀</div><div class="pinfo"><b>click frenzy</b><br>all cans worth 3x for 12s</div><button onclick="buy('fz')">400</button></div>
+    <div class="pitem" id="pi-lk"><div class="pico">🍀</div><div class="pinfo"><b>lucky potion</b><br>+15% crit chance for 30s</div><button onclick="buy('lk')">1200</button></div>
+    <div class="pitem" id="pi-dbl"><div class="pico">✌️</div><div class="pinfo"><b>double time</b><br>score multiplied x2 for 45s</div><button onclick="buy('dbl')">900</button></div>
+    <div class="pitem" id="pi-rush"><div class="pico">💨</div><div class="pinfo"><b>sugar rush</b><br>combo timer 3x longer for 20s</div><button onclick="buy('rush')">700</button></div>
+    <div class="pitem" id="pi-rain"><div class="pico">🌧️</div><div class="pinfo"><b>can rain</b><br>spawn 20 cans instantly</div><button onclick="buy('rain')">1800</button></div>
+    </div>
+
+    <div id="upg-tab" class="tab hidden">
+    <div class="psec">📈 base multiplier</div>
+    <div class="pitem" id="pi-d1"><div class="pico">🔴</div><div class="pinfo"><b>double tap</b><br>+2 base mult (max 5)</div><div class="pcnt" id="pc-d1">0/5</div><button onclick="buy('d1')">50</button></div>
+    <div class="pitem" id="pi-d5"><div class="pico">🟠</div><div class="pinfo"><b>hyper can</b><br>+5 base mult (max 3)</div><div class="pcnt" id="pc-d5">0/3</div><button onclick="buy('d5')">250</button></div>
+    <div class="pitem" id="pi-d15"><div class="pico">🟡</div><div class="pinfo"><b>mega dose</b><br>+15 base mult (1x only)</div><div class="pcnt" id="pc-d15">0/1</div><button onclick="buy('d15')">1000</button></div>
+    <div class="pitem" id="pi-d30"><div class="pico">🔵</div><div class="pinfo"><b>ultra surge</b><br>+30 base mult (1x only)</div><div class="pcnt" id="pc-d30">0/1</div><button onclick="buy('d30')">5000</button></div>
+    <div class="pitem" id="pi-d100"><div class="pico">🟣</div><div class="pinfo"><b>cosmic can</b><br>+100 base mult · needs 5 rebirths</div><div class="pcnt" id="pc-d100">0/1</div><button onclick="buy('d100')">50000</button></div>
+    <div class="pitem" id="pi-d500"><div class="pico">🌈</div><div class="pinfo"><b>rainbow overdose</b><br>+500 base mult · needs 10 rebirths</div><div class="pcnt" id="pc-d500">0/1</div><button onclick="buy('d500')">500000</button></div>
+
+    <div class="psec">🎯 crits</div>
+    <div class="pitem" id="pi-cr"><div class="pico">🎯</div><div class="pinfo"><b>critical hit</b><br>+10% crit chance, 5x pts (max 5)</div><div class="pcnt" id="pc-cr">0/5</div><button onclick="buy('cr')">300</button></div>
+    <div class="pitem" id="pi-crp"><div class="pico">💥</div><div class="pinfo"><b>crit power</b><br>crits do 10x instead of 5x (1x)</div><div class="pcnt" id="pc-crp">0/1</div><button onclick="buy('crp')">2000</button></div>
+    <div class="pitem" id="pi-mcc"><div class="pico">🍀</div><div class="pinfo"><b>lucky shot</b><br>+5% mega crit chance 50x (max 3)</div><div class="pcnt" id="pc-mcc">0/3</div><button onclick="buy('mcc')">1500</button></div>
+    <div class="pitem" id="pi-crchain"><div class="pico">⛓️</div><div class="pinfo"><b>crit chain</b><br>crits spawn 1 extra free can (1x)</div><div class="pcnt" id="pc-crchain">0/1</div><button onclick="buy('crchain')">4000</button></div>
+
+    <div class="psec">🏗️ passive</div>
+    <div class="pitem" id="pi-bc"><div class="pico">📦</div><div class="pinfo"><b>big cans</b><br>larger clickable area (1x)</div><div class="pcnt" id="pc-bc">0/1</div><button onclick="buy('bc')">400</button></div>
+    <div class="pitem" id="pi-sd"><div class="pico">🌊</div><div class="pinfo"><b>slow decay</b><br>cans last 2x longer (1x)</div><div class="pcnt" id="pc-sd">0/1</div><button onclick="buy('sd')">350</button></div>
+    <div class="pitem" id="pi-ac"><div class="pico">🤖</div><div class="pinfo"><b>auto clicker</b><br>clicks random can every 3s (1x)</div><div class="pcnt" id="pc-ac">0/1</div><button onclick="buy('ac')">800</button></div>
+    <div class="pitem" id="pi-ts"><div class="pico">🌀</div><div class="pinfo"><b>triple spawn</b><br>3 cans per tick (1x)</div><div class="pcnt" id="pc-ts">0/1</div><button onclick="buy('ts')">1200</button></div>
+    <div class="pitem" id="pi-cb"><div class="pico">🔥</div><div class="pinfo"><b>combo master</b><br>combos +8% per hit (max 3)</div><div class="pcnt" id="pc-cb">0/3</div><button onclick="buy('cb')">500</button></div>
+    <div class="pitem" id="pi-pp"><div class="pico">💸</div><div class="pinfo"><b>passive income</b><br>+5 pts/sec forever (max 10)</div><div class="pcnt" id="pc-pp">0/10</div><button onclick="buy('pp')">750</button></div>
+    <div class="pitem" id="pi-ch"><div class="pico">⛓️</div><div class="pinfo"><b>chain click</b><br>clicking triggers nearby cans too (1x)</div><div class="pcnt" id="pc-ch">0/1</div><button onclick="buy('ch')">3000</button></div>
+    <div class="pitem" id="pi-gs"><div class="pico">👻</div><div class="pinfo"><b>ghost cans</b><br>invisible cans worth 10x appear (1x)</div><div class="pcnt" id="pc-gs">0/1</div><button onclick="buy('gs')">5000</button></div>
+    <div class="pitem" id="pi-bling"><div class="pico">💎</div><div class="pinfo"><b>bling mode</b><br>every 10th can is worth 20x (1x)</div><div class="pcnt" id="pc-bling">0/1</div><button onclick="buy('bling')">6000</button></div>
+    <div class="pitem" id="pi-clickval"><div class="pico">📊</div><div class="pinfo"><b>market value</b><br>mult grows +1% per 100 caught (max 5)</div><div class="pcnt" id="pc-clickval">0/5</div><button onclick="buy('clickval')">2500</button></div>
+    <div class="pitem" id="pi-streak"><div class="pico">🏆</div><div class="pinfo"><b>win streak</b><br>no miss 10s = mult bonus stacks (max 5)</div><div class="pcnt" id="pc-streak">0/5</div><button onclick="buy('streak')">3500</button></div>
+
+    <div id="rb-tab" class="tab-hidden">
+        <div class="rbcard">
+            <div class="rbcard-title">♻️ rebirth system</div>
+            <div class="rbcard-body">reset score + upgrades, keep a <b>permanent multiplier</b> forever.
+        </div>
+        <div class="rbstats">
+            <div>rebirths: <b id="rbc">0</b></div>
+            <div>perm bonus: <b id="rbb">x1</b></div>
+            <div>lifetime: <b id="rbate">0</b> pts</div>
+        </div>
+    </div>
+    <table id="rbt">
+      <thead><tr><th>tier</th><th>need</th><th>reward</th><th></th></tr></thead>
+      <tbody>
+        <tr id="rbt0"><td>🌱 ascension i</td><td>1k</td><td>x10</td><td><button onclick="doRb(0)">go</button></td></tr>
+        <tr id="rbt1"><td>🌿 ascension ii</td><td>10k</td><td>x50</td><td><button onclick="doRb(1)">go</button></td></tr>
+        <tr id="rbt2"><td>🔥 ascension iii</td><td>100k</td><td>x200</td><td><button onclick="doRb(2)">go</button></td></tr>
+        <tr id="rbt3"><td>⭐ ascension iv</td><td>1m</td><td>x1k</td><td><button onclick="doRb(3)">go</button></td></tr>
+        <tr id="rbt4"><td>♾️ ascension v</td><td>10m</td><td>x5k</td><td><button onclick="doRb(4)">go</button></td></tr>
+        <tr id="rbt5"><td>🌌 ascension vi</td><td>1b</td><td>x50k</td><td><button onclick="doRb(5)">go</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="stats-tab" class="tab hidden">
+    <div class="psec">📊 session stats</div>
+    <div class="srow"><span>score</span><b id="st0">0</b></div>
+    <div class="srow"><span>all time earned</span><b id="st1">0</b></div>
+    <div class="srow"><span>cans caught</span><b id="st2">0</b></div>
+    <div class="srow"><span>cans missed</span><b id="st3">0</b></div>
+    <div class="srow"><span>accuracy</span><b id="st4">--%</b></div>
+    <div class="srow"><span>best combo</span><b id="st5">0</b></div>
+    <div class="srow"><span>crits landed</span><b id="st6">0</b></div>
+    <div class="srow"><span>mega crits</span><b id="st7">0</b></div>
+    <div class="srow"><span>golden cans</span><b id="st8">0</b></div>
+    <div class="srow"><span>ghost cans</span><b id="st9">0</b></div>
+    <div class="srow"><span>shields used</span><b id="st10">0</b></div>
+    <div class="srow"><span>biggest click</span><b id="st11">0</b></div>
+    <div class="srow"><span>total crit pts</span><b id="st12">0</b></div>
+    <div class="srow"><span>pts per minute</span><b id="st13">0</b></div>
+    <div class="srow"><span>time played</span><b id="st14">0s</b></div>
+    <div class="srow"><span>rebirths</span><b id="st15">0</b></div>
+    <div class="srow"><span>bling hits</span><b id="st16">0</b></div>
+    <div class="srow"><span>streak bonus</span><b id="st17">x1</b></div>
+  </div>
+</div>
+
+<div id="settings-modal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-title">⚙ settings</div>
+    <label class="mrow"><span>🔊 sound effects</span><input type="checkbox" id="sfx-t" checked onchange="cfg.sfx=this.checked"></label>
+    <label class="mrow"><span>🎵 music</span><input type="checkbox" id="mus-t" onchange="toggleMusic(this.checked)"></label>
+    <label class="mrow"><span>🎚 music volume</span><input type="range" id="mvol" min=0 max=100 value=35 oninput="setVol(this.value)"></label>
+    <label class="mrow"><span>💥 particles</span><input type="checkbox" id="par-t" checked onchange="cfg.particles=this.checked"></label>
+    <label class="mrow"><span>📺 scanlines</span><input type="checkbox" id="scan-t" checked onchange="toggleScan(this.checked)"></label>
+    <label class="mrow"><span>✨ cursor sparkle</span><input type="checkbox" id="spark-t" checked onchange="cfg.spark=this.checked"></label>
+    <label class="mrow"><span>📝 floating text</span><input type="checkbox" id="ft-t" checked onchange="cfg.floattext=this.checked"></label>
+    <label class="mrow"><span>🌙 dark mode</span><input type="checkbox" id="dark-t" checked onchange="toggleTheme(this.checked)"></label>
+    <div class="mrow"><span>🚀 spawn speed</span>
+      <select onchange="cfg.spd=+this.value;respawn()">
+        <option value="1100">normal</option><option value="750">fast</option>
+        <option value="500">chaos</option><option value="1600">chill</option>
+      </select>
+    </div>
+    <button class="mclose" onclick="closeSettings()">close</button>
+    <button class="mreset" onclick="if(confirm('reset?'))location.reload()">reset game</button>
+  </div>
+</div>
+
+<div id="scanlines"></div>
+
+<script src="game.js" defer></script>
+
+    </body>
+</html>
